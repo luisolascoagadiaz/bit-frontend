@@ -1,4 +1,4 @@
-# MiWebApp
+# MiSPA
 
 Hola, esta es mi Single Page Application (SPA) donde podrás evidenciar todo lo aprendido en el BOOTCAMP(Desarrollo Web Full Stack).
 
@@ -6,13 +6,7 @@ Hola, esta es mi Single Page Application (SPA) donde podrás evidenciar todo lo 
 Aquí puedes ver la demo de la SPA: [IR](https://luisolascoagadiaz.github.io/bit-frontend)
 
 ## Tecnologías usadas
-![NEM](public/mean-stack.png)
-
-## Características
-* Front-End.
-* Back-End.
-* Database.
-* API.
+![MEAN](public/mean-stack.png)
 
 ## Autor:
 LUIS OLASCOAGA DIAZ
