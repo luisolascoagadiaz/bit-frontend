@@ -1,14 +1,154 @@
 <div class="py-2 px-2">
   <div class="card border-primary mb-3">
     <div class="card-header text-bg-primary">
-      <i class="bi bi-code-slash fs-5"></i> En Construcción
+      <i class="bi bi-list-check fs-5"></i> Orders
     </div>
     <div class="card-body text-center">
-      <img
-        src="https://raw.githubusercontent.com/luisolascoagadiaz/bit-frontend/refs/heads/main/public/enconstruccion.png"
-        class="img-fluid"
-        alt="En Construcción"
-      />
+      <div class="btn-group mb-3" role="group">
+        <button type="button" class="btn btn-outline-primary" (click)="loadOrders()"><i class="bi bi-list-ol fs-5 px-2"></i></button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addOrder"><i class="bi bi-pencil fs-5 px-2"></i></button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editOrder"><i class="bi bi-pencil-square fs-5 px-2"></i></button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#delOrder"><i class="bi bi-trash fs-5 px-2"></i></button>
+      </div>
+      <table class="table table-hover table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Order</th>
+            <th scope="col">State</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for (order of orders; track order.id; let idx = $index, e = $even) {
+            <tr>
+              <td>{{idx + 1}}</td>
+              <td>{{order._id}}</td>
+              <td>{{order.date}}</td>
+              <td>{{order.priority}}</td>
+              <td>{{order.task}}</td>
+              <td>{{order.state}}</td>
+            </tr>
+            }
+        </tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addOrder" tabindex="-1" aria-labelledby="addOrder" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"><i class="bi bi-pencil fs-5 px-2"></i> Add Order</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addForm" (ngSubmit)="addhandleSubmit()">
+          <div class="form-floating py-2 px-1">
+            <input type="date" class="form-control" id="date" formControlName="date"/>
+            <label id="tagdate" for="date" class="bi bi-calendar-check"> Date:</label>
+          </div>
+          <div class="form-floating py-2 px-1">
+            <select id="priority" class="form-select" formControlName="priority">
+              <option selected>Open this select</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium </option>
+              <option value="Low">Low</option>
+            </select>
+            <label id="tagpriority" for="priority" class="bi bi-check2-square"> Priority:</label>
+          </div>
+          <div class="form-floating py-2 px-1">
+            <input type="text" class="form-control" id="task" formControlName="task"/>
+            <label id="tagtask" for="task" class="bi bi-keyboard"> Order</label>
+          </div>
+          <div class="form-floating py-2 px-1">
+            <select id="state" class="form-select" formControlName="state">
+              <option selected>Open this select</option>
+              <option value="TO DO">TO DO</option>
+              <option value="DOING">DOING </option>
+              <option value="DONE">DONE</option>
+            </select>
+            <label id="tagstate" for="state" class="bi bi-clock-history"> State:</label>
+          </div>
+
+          <div id="msj" class="alert text-center" role="alert">{{message}}</div>
+        <div class="text-center"><button type="submit" class="btn btn-primary">SAVE</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editOrder" tabindex="-1" aria-labelledby="editOrder" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"><i class="bi bi-pencil-square fs-5 px-2"></i> Edit Order</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm" (ngSubmit)="edithandleSubmit()">
+          <div class="form-floating py-2 px-1">
+            <input type="date" class="form-control" id="fecha" formControlName="fecha"/>
+            <label id="tagfecha" for="fecha" class="bi bi-calendar-check"> Date:</label>
+          </div>
+          <div class="form-floating py-2 px-1">
+            <select id="prioridad" class="form-select" formControlName="prioridad">
+              <option selected>Open this select</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium </option>
+              <option value="Low">Low</option>
+            </select>
+            <label id="tagprioridad" for="prioridad" class="bi bi-check2-square"> Priority:</label>
+          </div>
+          <div class="form-floating py-2 px-1">
+            <input type="text" class="form-control" id="orden" formControlName="orden"/>
+            <label id="tagorden" for="orden" class="bi bi-keyboard"> Order</label>
+          </div>
+          <div class="form-floating py-2 px-1">
+            <select id="estado" class="form-select" formControlName="estado">
+              <option selected>Open this select</option>
+              <option value="TO DO">TO DO</option>
+              <option value="DOING">DOING </option>
+              <option value="DONE">DONE</option>
+            </select>
+            <label id="tagprioridad" for="estado" class="bi bi-clock-history"> State:</label>
+          </div>
+
+          <div id="msj" class="alert text-center" role="alert"></div>
+        <div class="text-center"><button type="submit" class="btn btn-primary">SAVE</button></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+        <a href="/dashboard"><button type="button" class="btn btn-primary">SI</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delOrder" tabindex="-1" aria-labelledby="delOrder" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"><i class="bi bi-trash fs-5 px-2"></i> Delete Order</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="delForm" (ngSubmit)="delhandleSubmit()">
+          <input type="hidden" class="form-control" id="id" formControlName="id" value="687934efd7bf7fba15fd3fcc"/>
+        </form>
+        ¿Esta seguro que desea eliminar la orden?<br>
+      {{message}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+        <button type="submit" class="btn btn-primary">SI</button>
+      </div>
     </div>
   </div>
 </div>
